@@ -407,7 +407,7 @@ public class AddRemoveComboBox extends ComboBox<String> {
          * with data binding. Buttons have an idProperty, but no classProperty.
          */
         private String addButtonStyle = "-fx-background-color: transparent;\n" +
-                "        -fx-graphic:  url('./Plus-Math-15.png');\n" +
+                "        -fx-graphic:  url('Plus-Math-15.png');\n" +
                 "        -fx-opacity: 0.2;\n" +
                 "        -fx-padding: 0.333 .333 .333 .333;\n" +
                 "        -fx-cursor: hand;";
@@ -421,7 +421,7 @@ public class AddRemoveComboBox extends ComboBox<String> {
          * with data binding. Buttons have an idProperty, but no classProperty.
          */
         private String removeButtonStyle = "-fx-background-color: transparent;\n" +
-                "        -fx-graphic:  url('./Delete-15.png');\n" +
+                "        -fx-graphic:  url('Delete-15.png');\n" +
                 "        -fx-opacity: 0.2;\n" +
                 "        -fx-padding: 0.333 .333 .333 .333;\n" +
                 "        -fx-cursor: hand;";
