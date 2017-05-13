@@ -23,7 +23,7 @@
 //        BorderPane borderPane = new BorderPane();
 //
 //        ObservableList<String> dummyList =
-//                FXCollections.observableArrayList("Dummy", "List", AddRemoveComboBox.ADD_CELL);
+//                FXCollections.observableArrayList("Dummy", "List", AddRemoveComboBox.ADD_CELL_PLACEHOLDER);
 //        AddRemoveComboBox addRemoveComboBox = new AddRemoveComboBox(dummyList);
 //        addRemoveComboBox.setSortAlphabetically(false);
 //

@@ -38,7 +38,7 @@ import java.util.Objects;
  * <p>
  * Items are added by clicking the '+' at the bottom of the list. This plus button, or add button as
  * I'll call it will be automatically kept at the bottom of the list, but (for now) needs to be added manually.
- * You add the "add button" by including `AddRemoveButton.ADD_CELL` in your item list.
+ * You add the "add button" by including `AddRemoveButton.ADD_CELL_PLACEHOLDER` in your item list.
  * <p>
  * It's important that the developer implement the additionAction by
  * calling setAdditionAction; otherwise nothing will happen.
@@ -47,23 +47,20 @@ import java.util.Objects;
  * AddRemoveListCell (accessible via AddRemoveComboBox.AddRemoveListCell) which is conveniently
  * contained herein.
  */
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "Convert2Lambda"})
 public class AddRemoveComboBox extends ComboBox<String> {
 
     /**
-     * For convenience in adding the "Add Button" to the list of choices.
+     * For convenience in adding the "Add Button" to the list of choices. Hopefully no one ever
+     * has this exact text in the
      */
-    public static final String ADD_CELL = "Add";
+    public static final String ADD_CELL_PLACEHOLDER = "ADD_AN_ADD_CELL_RIGHT_HERE_RIGHT_NOW";
 
     /**
-     * This will keep the addOption (the little '+') at the bottom of the list
+     * This will keep the ADD_CELL_PLACEHOLDER (the little '+') at the bottom of the list.
      */
-    private Comparator<String> addOptionComparator;
-    /**
-     * This string is set by the user; any option within the AddRemoveComboBox's list that matches
-     * this string will be turned into a "add-a-cell" list cell.
-     */
-    private String addOption = "Add";
+    private Comparator<String> addCellRelegator;
+
     /**
      * Happens when the user removes something from the list.
      * <p>
@@ -92,13 +89,13 @@ public class AddRemoveComboBox extends ComboBox<String> {
     };
     /**
      * Keeps track of whether the list was just sorted or not. If it was, the listener on the
-     * item list will make sure not to sort it again. See tech.ugma.customcomponents.AddRemoveComboBox#initAddOptionManager()
+     * item list will make sure not to sort it again. See tech.ugma.customcomponents.AddRemoveComboBox#initAddCellManager()
      */
     private boolean wasJustSorted;
 
     /**
-     * Controls whether or not the AddRemoveComboBox should sort the rest of the items (exluding the
-     * addOption) alphabetically.
+     * Controls whether or not the AddRemoveComboBox should sort the rest of the items (excluding the
+     * add cell) alphabetically.
      *
      * I've got it set to false by default, because normal ComboBox behavior is to *not* sort items.
      */
@@ -120,12 +117,12 @@ public class AddRemoveComboBox extends ComboBox<String> {
     public AddRemoveComboBox(ObservableList<String> list) {
         super(list);
 
-        //Make the comparator that will keep the addOption at the bottom of the list
-        addOptionComparator = initAddOptionComparator();
+        //Make the comparator that will keep the add cell at the bottom of the list
+        addCellRelegator = initAddCellRelegator();
 
         //Listen for every time the list is changed; when it is, re-sort the items,
-        //making sure the addOption is at the bottom.
-        list.addListener(initAddOptionManager());
+        //making sure the add cell is at the bottom.
+        list.addListener(initAddCellManager());
 
         //Make and give the cell factory to the combo box. The cell factory
         this.setCellFactory(initCellFactory());
@@ -142,24 +139,24 @@ public class AddRemoveComboBox extends ComboBox<String> {
     }
 
     /**
-     * As a rule, it is assumed that the addOption is desired at the bottom of the list.
+     * As a rule, it is assumed that the add cell is desired at the bottom of the list.
      * The comparator that this returns should hopefully ensure just that.
      *
-     * @return a comparator that will always consider the addOption as smaller
+     * @return a comparator that will always consider the add cell as the smaller of the two.
      */
-    private Comparator<String> initAddOptionComparator() {
+    private Comparator<String> initAddCellRelegator() {
         return new Comparator<String>() {
             @Override
             public int compare(String o1, String o2) {
 
-                if (Objects.equals(addOption, o1)) {
-                    //If the addOption is o1 (the first argument), return positive, telling the
+                if (Objects.equals(ADD_CELL_PLACEHOLDER, o1)) {
+                    //If the add cell is o1 (the first argument), return positive, telling the
                     //comparator that o1 is greater.
                     return Integer.MAX_VALUE;
-                } else if (Objects.equals(addOption, o2)) {
+                } else if (Objects.equals(ADD_CELL_PLACEHOLDER, o2)) {
 
-                    //If the addOption is o2 (the second argument), return negative, telling the
-                    //comparator that addOption is lesser.
+                    //If the add cell is o2 (the second argument), return negative, telling the
+                    //comparator that add cell is lesser.
                     return Integer.MIN_VALUE;
                 } else {
 
@@ -175,11 +172,11 @@ public class AddRemoveComboBox extends ComboBox<String> {
     }
 
     /**
-     * Makes an invalidation listener that keeps the addOption at the bottom of the list.
+     * Makes an invalidation listener that keeps the add cell at the bottom of the list.
      *
-     * @return an invalidation listener that keeps the addOption at the bottom of the list.
+     * @return an invalidation listener that keeps the add cell at the bottom of the list.
      */
-    private InvalidationListener initAddOptionManager() {
+    private InvalidationListener initAddCellManager() {
         return new InvalidationListener() {
             @Override
             public void invalidated(Observable observable) {
@@ -196,7 +193,7 @@ public class AddRemoveComboBox extends ComboBox<String> {
                     wasJustSorted = true;
 
                     //sort list
-                    AddRemoveComboBox.this.getItems().sort(addOptionComparator);
+                    AddRemoveComboBox.this.getItems().sort(addCellRelegator);
                 }
             }
 
@@ -220,9 +217,7 @@ public class AddRemoveComboBox extends ComboBox<String> {
 
                 //Make sure the combo box hides itself after the cell is clicked.
                 //This is necessary because we disabled the hide on click with the custom skin.
-                customCell.setOnMousePressed(event -> {
-                    AddRemoveComboBox.this.hide();
-                });
+                customCell.setOnMousePressed(event -> AddRemoveComboBox.this.hide());
 
                 //Gives the user the ability to remove carrier choices
                 customCell.setRemoveButtonAction(removalAction);
@@ -271,7 +266,7 @@ public class AddRemoveComboBox extends ComboBox<String> {
 
         return (observable, oldValue, selectedValue) -> {
 
-            if (Objects.equals(selectedValue, addOption)) {
+            if (Objects.equals(selectedValue, ADD_CELL_PLACEHOLDER)) {
                 //This will happen if the user selects the add-button cell, without clicking
                 // the add-button.
 
@@ -322,26 +317,9 @@ public class AddRemoveComboBox extends ComboBox<String> {
         this.additionAction = additionAction;
     }
 
-    /**
-     * By default, set to "Add". Any option within the AddRemoveComboBox's list that matches
-     * this string will be turned into a "add-a-cell" list cell.
-     *
-     * @return the current add option.
-     */
-    public String getAddOption() {
-        return addOption;
-    }
 
     /**
-     * By default, set to "Add". Any option within the AddRemoveComboBox's list that matches
-     * this string will be turned into a "add-a-cell" list cell.
-     */
-    public void setAddOption(String addOption) {
-        this.addOption = addOption;
-    }
-
-    /**
-     * Controls whether or not the list is sorted alphabetically. (This excludes the addOption,
+     * Controls whether or not the list is sorted alphabetically. (This excludes the add cell,
      * which is always relegated to the bottom.)
      * @return true if the list *will* be sorted alphabetically, false otherwise.
      */
@@ -351,7 +329,7 @@ public class AddRemoveComboBox extends ComboBox<String> {
 
 
     /**
-     * Set this to true if you want the list to be sorted alphabetically. The addOption will
+     * Set this to true if you want the list to be sorted alphabetically. The add cell will
      * still get put at the bottom, just the rest of the items will be put in alphabetical order.
      * @param sortAlphabetically true = do sort alphabetically; false = do not sort alphabetically
      */
@@ -442,18 +420,18 @@ public class AddRemoveComboBox extends ComboBox<String> {
             // Set max width to infinity so the button is all the way to the right.
             label.setMaxWidth(Double.POSITIVE_INFINITY);
 
-            //If the item is the addOption, style it like an add button;
+            //If the item is the add cell, style it like an add button;
             // other cells should have remove buttons.
             button.styleProperty().bind(
-                    Bindings.when(this.itemProperty().isEqualTo(addOption))
+                    Bindings.when(this.itemProperty().isEqualTo(ADD_CELL_PLACEHOLDER))
                             .then(addButtonStyle)
                             .otherwise(removeButtonStyle)
             );
 
-            //Also, if it's the addOption, it's label should have no text;
+            //Also, if it's the add cell, it's label should have no text;
             // other cells, however, should show the item.
             label.textProperty().bind(
-                    Bindings.when(this.itemProperty().isEqualTo(addOption))
+                    Bindings.when(this.itemProperty().isEqualTo(ADD_CELL_PLACEHOLDER))
                             .then("")
                             .otherwise(this.itemProperty().asString())
             );
@@ -463,7 +441,7 @@ public class AddRemoveComboBox extends ComboBox<String> {
             itemProperty().addListener(new ChangeListener<String>() {
                 @Override
                 public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                    if (Objects.equals(newValue, addOption)) {
+                    if (Objects.equals(newValue, ADD_CELL_PLACEHOLDER)) {
                         //Make this button an add button
 
                         //And make it add instead of remove
@@ -552,7 +530,7 @@ public class AddRemoveComboBox extends ComboBox<String> {
          * This should only need to be set once. This same action event will be called
          * whenever the add button is clicked.
          *
-         * @param addEvent
+         * @param addEvent your favorite way to get a new item from the user and add it to the list.
          */
         public void setAddButtonAction(EventHandler<ActionEvent> addEvent) {
             this.addEvent = addEvent;
