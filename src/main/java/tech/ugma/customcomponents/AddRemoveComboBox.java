@@ -32,14 +32,16 @@ import java.util.Objects;
 /**
  * A ComboBox you can add and remove items from.
  * <p>
- * Items are removed by clicking the little 'x' next to the item to be removed. It's important
+ * Items are removed by clicking the 'x' next to the item to be removed. It's important
  * that the developer implement the removalAction by calling setRemovalAction; otherwise nothing will
  * happen. See setRemovalAction's documentation for a tip on removing the item who's 'x' was clicked.
  * <p>
- * Items are added by having the word "Add" in the item list. "Add" is the default keyword to tell the
- * AddRemoveComboBox that "this cell should be an add button, not a normal cell." It's important
- * that the developer implement the additionAction by calling setAdditionAction; otherwise nothing will
- * happen.
+ * Items are added by clicking the '+' at the bottom of the list. This plus button, or add button as
+ * I'll call it will be automatically kept at the bottom of the list, but (for now) needs to be added manually.
+ * You add the "add button" by including `AddRemoveButton.ADD_CELL` in your item list.
+ * <p>
+ * It's important that the developer implement the additionAction by
+ * calling setAdditionAction; otherwise nothing will happen.
  * <p>
  * Removable cells are implemented using a custom class called
  * AddRemoveListCell (accessible via AddRemoveComboBox.AddRemoveListCell) which is conveniently

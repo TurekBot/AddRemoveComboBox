@@ -7,7 +7,47 @@
     <groupId>tech.ugma.customcomponents</groupId>
     <artifactId>AddRemoveComboBox</artifactId>
     <version>0.5</version>
+    <packaging>jar</packaging>
 
+    <name>${project.groupId}:${project.artifactId}</name>
+    <description>
+        A ComboBox you can directly add and remove items from.
+
+        Click an item's 'x' to remove it, click the '+' at the bottom to add a new item.
+
+        The AddRemoveComboBox gives your user an intuitive and easy-on-the-eyes way to
+        remove/add items to the combo box. You maintain the freedom of deciding how to
+        implement the items' addition/removal (hints are given in the javadocs, if you'd like them).
+
+        Items are removed by clicking the 'x' next to the item to be removed.
+        
+        Items are added by clicking the '+' at the bottom of the list. This plus button, or "add button" as
+        I'll call it will be automatically kept at the bottom of the list, but (for now) needs to be added manually.
+        You add the "add button" by including `AddRemoveButton.ADD_CELL` in your item list.
+    </description>
+    <url>https://bitbucket.org/UgmaDevelopment/addremovecombobox</url>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Bradley Turek</name>
+            <email>UgmaDevelopment@gmail.com</email>
+            <organization>Ugma Development</organization>
+            <organizationUrl>http://www.ugma.tech</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:hg:https://bitbucket.org/UgmaDevelopment/addremovecombobox</connection>
+        <developerConnection>scm:hg:https://bitbucket.org/UgmaDevelopment/addremovecombobox</developerConnection>
+        <url>https://bitbucket.org/UgmaDevelopment/addremovecombobox</url>
+    </scm>
 
     <distributionManagement>
         <snapshotRepository>
@@ -19,21 +59,12 @@
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
+
+
+
     <build>
 
         <plugins>
-            <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.7</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <serverId>ossrh</serverId>
-                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                </configuration>
-            </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -61,6 +92,21 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+
+
+            <!--The following are plugins that are necessary to deploy the
+                artifact to The Central Repository-->
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.7</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
             </plugin>
 
             <plugin>
@@ -105,20 +151,9 @@
                     </execution>
                 </executions>
             </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <version>2.5.3</version>
-                <configuration>
-                    <autoVersionSubmodules>true</autoVersionSubmodules>
-                    <useReleaseProfile>false</useReleaseProfile>
-                    <releaseProfiles>release</releaseProfiles>
-                    <goals>deploy</goals>
-                </configuration>
-            </plugin>
-
         </plugins>
+
+
     </build>
 
 
