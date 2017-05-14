@@ -2,7 +2,7 @@
 
 [![Maven Central](https://img.shields.io/maven-central/v/org.apache.maven/apache-maven.svg)](https://maven-badges.herokuapp.com/maven-central/tech.ugma.customcomponents/AddRemoveComboBox/badge.svg)
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.controlsfx/controlsfx/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.controlsfx/controlsfx)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/tech.ugma.customcomponents/AddRemoveComboBox/badge.svg)](https://maven-badges.herokuapp.com/maven-central/tech.ugma.customcomponents/AddRemoveComboBox)
 
 This README would normally document whatever steps are necessary to get your application up and running.
 
