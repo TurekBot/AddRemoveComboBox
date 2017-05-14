@@ -17,11 +17,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.util.Callback;
 
 import java.text.Collator;
@@ -351,11 +348,6 @@ public class AddRemoveComboBox extends ComboBox<String> {
     public class AddRemoveListCell extends ListCell<String> {
 
         /**
-         * This is the node that will display the text and the remove-button.
-         */
-        private HBox box;
-
-        /**
          * Each item in the combo boxes item list will be put here as a label
          */
         private Label label = new Label();
@@ -365,6 +357,11 @@ public class AddRemoveComboBox extends ComboBox<String> {
          * This is formatted with internal CSS to be either an add- or remove- button.
          */
         private Button button = new Button();
+
+        /**
+         * This is the node that will display the text and the remove-button.
+         */
+        private HBox box = new HBox(button, label);
 
         /**
          * Will happen when the user clicks a remove button; must be implemented by developer before use.
@@ -417,7 +414,7 @@ public class AddRemoveComboBox extends ComboBox<String> {
             // you should use a converter.
             label.textProperty().bind(itemProperty());
 
-            // Set max width to infinity so the button is all the way to the right.
+            // Set max width to infinity so the label takes up the rest of the space.
             label.setMaxWidth(Double.POSITIVE_INFINITY);
 
             //If the item is the add cell, style it like an add button;
@@ -466,15 +463,13 @@ public class AddRemoveComboBox extends ComboBox<String> {
             });
 
 
-            // Arrange controls in a HBox, and set display to graphic only
-            // (the text is included in the box in this implementation).
-            box = new HBox(label, button);
-            HBox.setHgrow(label, Priority.ALWAYS);
-            box.setAlignment(Pos.CENTER);
-
-            //Give button a little bit of margin from the edge
-            box.setPadding(new Insets(0, 3, 0, 0));
+            // Set display to graphic only
+            // (the text is included in the box (graphic) in this implementation).
             setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+
+            //Put some space between the button and the label
+            box.setSpacing(3);
+
 
         }
 
