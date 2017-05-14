@@ -12,12 +12,16 @@ For the uninitiated:
 
  * [SceneBuilder](http://gluonhq.com/products/scene-builder/) is a WYSIWYG User Interface Designer for JavaFX.
  * You can have SceneBuilder download custom components directly from online repositories like Maven Central.
- * To download AddRemoveComboBox to your SceneBuilder installation:
+
+## Scene Builder ##
+* To download *AddRemoveComboBox* to your SceneBuilder installation: 
     * ![JAR/FXML Manager](https://i.imgur.com/OUtwfRd.png)
     * ![Search repositories](https://i.imgur.com/eZwhO7Q.png)
     * ![Get it!](https://i.imgur.com/fqKNUnP.png)
- * Don't forget to either 
-    * Add the [Maven Dependency](http://search.maven.org/#artifactdetails|tech.ugma.customcomponents|AddRemoveComboBox|) to your POM, if you're using Maven.
+
+## Your Project ##
+* Don't forget to either 
+    * Add the [Maven Dependency](http://search.maven.org/#artifactdetails|tech.ugma.customcomponents|AddRemoveComboBox|) to your project's POM, if you're using Maven.
     * Or (for those without Maven experience, like I once was) do it manually
         * [download the JAR](https://repo.maven.apache.org/maven2/tech/ugma/customcomponents/AddRemoveComboBox/)
             * Click the most recent version number and then find and download the jar called `AddRemoveComboBox-{Version Number}.jar `
