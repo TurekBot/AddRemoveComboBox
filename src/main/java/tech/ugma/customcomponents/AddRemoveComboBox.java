@@ -49,12 +49,12 @@ public class AddRemoveComboBox extends ComboBox<String> {
 
     /**
      * For convenience in adding the "Add Button" to the list of choices. Hopefully no one ever
-     * has this exact text in the
+     * has this exact text in their list.
      */
     public static final String ADD_CELL_PLACEHOLDER = "ADD_AN_ADD_CELL_RIGHT_HERE_RIGHT_NOW";
 
     /**
-     * This will keep the ADD_CELL_PLACEHOLDER (the little '+') at the bottom of the list.
+     * This will keep the add cell (the little '+') at the bottom of the list.
      */
     private Comparator<String> addCellRelegator;
 
