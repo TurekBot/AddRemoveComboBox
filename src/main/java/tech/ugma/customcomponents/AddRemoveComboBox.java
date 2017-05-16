@@ -17,6 +17,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
@@ -24,21 +25,19 @@ import javafx.util.Callback;
 import java.text.Collator;
 import java.util.Comparator;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.function.Consumer;
 
 
 /**
  * A ComboBox you can add and remove items from.
  * <p>
- * Items are removed by clicking the 'x' next to the item to be removed. It's important
- * that the developer implement the removalAction by calling setRemovalAction; otherwise nothing will
- * happen. See setRemovalAction's documentation for a tip on removing the item who's 'x' was clicked.
+ * Items are removed by clicking the 'x' next to the item to be removed.
  * <p>
  * Items are added by clicking the '+' at the bottom of the list. This plus button, or add button as
  * I'll call it will be automatically kept at the bottom of the list, but (for now) needs to be added manually.
+ * (This lets you only allow removal, but not addition.)
  * You add the "add button" by including `AddRemoveButton.ADD_CELL_PLACEHOLDER` in your item list.
- * <p>
- * It's important that the developer implement the additionAction by
- * calling setAdditionAction; otherwise nothing will happen.
  * <p>
  * Removable cells are implemented using a custom class called
  * AddRemoveListCell (accessible via AddRemoveComboBox.AddRemoveListCell) which is conveniently
@@ -59,31 +58,69 @@ public class AddRemoveComboBox extends ComboBox<String> {
     private Comparator<String> addCellRelegator;
 
     /**
-     * Happens when the user removes something from the list.
+     * The default action for when when the user removes something from the list.
      * <p>
-     * Needs to be set by the user before the AddRemoveComboBox is used.
+     * If you don't like the way it's done here, feel free to set your own by calling
+     * setRemovalAction().
      */
     private EventHandler<ActionEvent> removalAction = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
-            throw new UnsupportedOperationException("The Removal Action needs to be implemented first!" +
-                    " Try calling buttonedComboBox.setRemovalAction(new EventHandler<ActionEvent>() { ... }); " +
-                    "before using the AddRemoveComboBox");
+
+            //Get the cell whose button was clicked
+            Button button = (Button) event.getSource();
+            HBox hBox = (HBox) button.getParent();
+            AddRemoveComboBox.AddRemoveListCell cell = (AddRemoveComboBox.AddRemoveListCell) hBox.getParent();
+
+            AddRemoveComboBox.this.getItems().remove(cell.getItem());
+
+            //I can't quite figure out how to resize the ListView once an item is removed.
+            //However, the ComboBox seems to know how to do it, itself; so I'll just open
+            //and close it and hope no one notices.
+            AddRemoveComboBox.this.hide();
+            AddRemoveComboBox.this.show();
         }
     };
     /**
-     * Happens when the user adds something to the list.
+     * The default action for when when the user adds something from the list.
      * <p>
-     * Needs to be set by the user before the AddRemoveComboBox is used.
+     * If you don't like the way it's done here, feel free to set your own by calling
+     * setAdditionAction().
      */
     private EventHandler<ActionEvent> additionAction = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
-            throw new UnsupportedOperationException("The Addition Action needs to be implemented first!" +
-                    " Try calling buttonedComboBox.setAdditionAction(new EventHandler<ActionEvent>() { ... }); " +
-                    "before using the AddRemoveComboBox");
+            //Get the dialog ready
+            Dialog<String> addDialog = new TextInputDialog();
+            addDialog.setTitle("New Item");
+            addDialog.setHeaderText(null);
+            addDialog.setContentText("Please enter the new item: ");
+
+            //Get the scene and tell the dialog that the scene is its owner.
+            //This will ensure that this dialog's icon matches the scene's
+            Parent parent = AddRemoveComboBox.this.getParent();
+            while (parent.getParent() != null) {
+                parent = parent.getParent();
+            }
+            addDialog.initOwner(parent.getScene().getWindow());
+
+            //Show the dialog and then wait for the result
+            Optional<String> result = addDialog.showAndWait();
+
+            //If the result comes back, then:
+            result.ifPresent(new Consumer<String>() {
+                @Override
+                public void accept(String s) {
+                    //Add the new item
+                    AddRemoveComboBox.this.getItems().add(s);
+                    //Select the new item
+                    AddRemoveComboBox.this.getSelectionModel().select(s);
+                }
+            });
+
         }
     };
+
     /**
      * Keeps track of whether the list was just sorted or not. If it was, the listener on the
      * item list will make sure not to sort it again. See tech.ugma.customcomponents.AddRemoveComboBox#initAddCellManager()
@@ -93,7 +130,7 @@ public class AddRemoveComboBox extends ComboBox<String> {
     /**
      * Controls whether or not the AddRemoveComboBox should sort the rest of the items (excluding the
      * add cell) alphabetically.
-     *
+     * <p>
      * I've got it set to false by default, because normal ComboBox behavior is to *not* sort items.
      */
     private boolean sortAlphabetically = false;
@@ -318,6 +355,7 @@ public class AddRemoveComboBox extends ComboBox<String> {
     /**
      * Controls whether or not the list is sorted alphabetically. (This excludes the add cell,
      * which is always relegated to the bottom.)
+     *
      * @return true if the list *will* be sorted alphabetically, false otherwise.
      */
     public boolean isSortAlphabetically() {
@@ -328,6 +366,7 @@ public class AddRemoveComboBox extends ComboBox<String> {
     /**
      * Set this to true if you want the list to be sorted alphabetically. The add cell will
      * still get put at the bottom, just the rest of the items will be put in alphabetical order.
+     *
      * @param sortAlphabetically true = do sort alphabetically; false = do not sort alphabetically
      */
     public void setSortAlphabetically(boolean sortAlphabetically) {

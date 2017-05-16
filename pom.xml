@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -16,14 +16,7 @@
         Click an item's 'x' to remove it, click the '+' at the bottom to add a new item.
 
         The AddRemoveComboBox gives your user an intuitive and easy-on-the-eyes way to
-        remove/add items to the combo box. You maintain the freedom of deciding how to
-        implement the items' addition/removal (hints are given in the javadocs, if you'd like them).
-
-        Items are removed by clicking the 'x' next to the item to be removed.
-
-        Items are added by clicking the '+' at the bottom of the list. This plus button, or "add button" as
-        I'll call it will be automatically kept at the bottom of the list, but (for now) needs to be added manually.
-        You add the "add button" by including `AddRemoveButton.ADD_CELL` in your item list.
+        remove/add items, with all the familiarity of a ComboBox.
     </description>
     <url>https://bitbucket.org/UgmaDevelopment/addremovecombobox</url>
 
