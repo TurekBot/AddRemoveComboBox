@@ -6,7 +6,7 @@
 
     <groupId>tech.ugma.customcomponents</groupId>
     <artifactId>AddRemoveComboBox</artifactId>
-    <version>0.5</version>
+    <version>0.6</version>
     <packaging>jar</packaging>
 
     <name>${project.groupId}:${project.artifactId}</name>
@@ -74,8 +74,8 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>8.6.0</version>
                 <configuration>
-                    <mainClass>tech.ugma.customcomponents.AddRemoveComboBox</mainClass>
-                    <jfxMainAppJarName>AddRemoveComboBox.jar</jfxMainAppJarName>
+                    <mainClass>tech.ugma.customcomponents.DemoAddRemoveComboBox</mainClass>
+                    <jfxMainAppJarName>DemoAddRemoveComboBox.jar</jfxMainAppJarName>
                 </configuration>
                 <executions>
                     <execution>
