@@ -156,7 +156,11 @@ public class AddRemoveComboBox extends ComboBox<String> {
 
         //Listen for every time the list is changed; when it is, re-sort the items,
         //making sure the add cell is at the bottom.
-        list.addListener(initAddCellManager());
+        if (list != null) {
+            list.addListener(initAddCellManager());
+        } else {
+            throw new NullPointerException("List passed to constructor is null.");
+        }
 
         //Make and give the cell factory to the combo box. The cell factory makes the cells that are
         //displayed in the dropdown area in a ListView
