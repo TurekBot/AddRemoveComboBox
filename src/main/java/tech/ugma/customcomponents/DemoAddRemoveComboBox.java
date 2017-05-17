@@ -33,6 +33,7 @@ public class DemoAddRemoveComboBox extends Application {
         addRemoveComboBox = new AddRemoveComboBox(dummyList);
         addRemoveComboBox.setSortAlphabetically(false);
 
+
         borderPane.setTop(addRemoveComboBox);
 
 
@@ -47,6 +48,9 @@ public class DemoAddRemoveComboBox extends Application {
 
         primaryStage.setScene(new Scene(borderPane, 400, 300));
         primaryStage.show();
+
+
+//        ScenicView.show(primaryStage.getScene());
     }
 
     private void submit(ActionEvent actionEvent) {

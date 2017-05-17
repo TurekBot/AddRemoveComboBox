@@ -158,14 +158,15 @@ public class AddRemoveComboBox extends ComboBox<String> {
         //making sure the add cell is at the bottom.
         list.addListener(initAddCellManager());
 
-        //Make and give the cell factory to the combo box. The cell factory
+        //Make and give the cell factory to the combo box. The cell factory makes the cells that are
+        //displayed in the dropdown area in a ListView
         this.setCellFactory(initCellFactory());
 
         //Without this, the ButtonedComboBx will hide before the click registers to the button.
         this.setSkin(initCustomSkin());
 
-        //Take care of clicks that by definition don't mean anything
-        this.getSelectionModel().selectedItemProperty().addListener(initBadClickListener());
+        //Don't show the big ugly constant that holds the place of the add cell
+        this.getSelectionModel().selectedItemProperty().addListener(initHideUglyConstantListener());
 
         //By default, select first option
         this.getSelectionModel().selectFirst();
@@ -249,16 +250,24 @@ public class AddRemoveComboBox extends ComboBox<String> {
                 //two parts, the label and a button.
                 AddRemoveListCell customCell = new AddRemoveListCell();
 
-                //Make sure the combo box hides itself after the cell is clicked.
-                //This is necessary because we disabled the hide on click with the custom skin.
-                customCell.setOnMousePressed(event -> AddRemoveComboBox.this.hide());
-
                 //Gives the user the ability to remove carrier choices
                 customCell.setRemoveButtonAction(removalAction);
 
 
                 //Give user the ability to add carriers
                 customCell.setAddButtonAction(additionAction);
+
+                //If the cell clicked is the add cell (even if they don't click the button), we want something to happen.
+                customCell.setOnMousePressed(clickAddButton -> {
+                    //Only if the click was on the add cell, simulate a button click.
+                    if (Objects.equals(customCell.getItem(), ADD_CELL_PLACEHOLDER)) {
+                        customCell.button.fire();
+                    }
+
+                    //No matter what, hide the box after the click.
+                    //This is necessary because we disabled the hide on click with the custom skin.
+                    AddRemoveComboBox.this.hide();
+                });
 
 
                 //Finally, return the customCell, all gussied up.
@@ -289,20 +298,16 @@ public class AddRemoveComboBox extends ComboBox<String> {
     }
 
     /**
-     * When the user selects the add-button cell, we don't really want to do anything. (If you
-     * do want to do something, go ahead and change this accordingly). We want to wait until they
-     * click the little plus sign. It should be at least a little intuitive because their cursor
-     * changes to a hand when they mouseover the button.
+     * When the user selects the add-button cell, we don't really want to show anything in the drop down's button
+     * area.
      *
-     * @return a change listener that takes care of clicks we don't want
+     * @return a change listener that doesn't allow the big ugly constant to show in the button area
      */
-    private ChangeListener<? super String> initBadClickListener() {
+    private ChangeListener<? super String> initHideUglyConstantListener() {
 
         return (observable, oldValue, selectedValue) -> {
 
             if (Objects.equals(selectedValue, ADD_CELL_PLACEHOLDER)) {
-                //This will happen if the user selects the add-button cell, without clicking
-                // the add-button.
 
                 //The following needs to be in a runLater because
                 // you cannot change the selection while a selection change
@@ -463,6 +468,7 @@ public class AddRemoveComboBox extends ComboBox<String> {
                             .then(addButtonStyle)
                             .otherwise(removeButtonStyle)
             );
+
 
             //Also, if it's the add cell, it's label should have no text;
             // other cells, however, should show the item.
