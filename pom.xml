@@ -6,7 +6,7 @@
 
     <groupId>tech.ugma.customcomponents</groupId>
     <artifactId>AddRemoveComboBox</artifactId>
-    <version>0.6</version>
+    <version>0.7</version>
     <packaging>jar</packaging>
 
     <name>${project.groupId}:${project.artifactId}</name>
@@ -15,7 +15,7 @@
 
         Click an item's 'x' to remove it, click the '+' at the bottom to add a new item.
 
-        The AddRemoveComboBox gives your user an intuitive and easy-on-the-eyes way to
+        The AddRemoveComboBox gives your user an intuitive way to
         remove/add items, with all the familiarity of a ComboBox.
     </description>
     <url>https://bitbucket.org/UgmaDevelopment/addremovecombobox</url>
