@@ -2,7 +2,7 @@
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/tech.ugma.customcomponents/AddRemoveComboBox/badge.svg)](https://maven-badges.herokuapp.com/maven-central/tech.ugma.customcomponents/AddRemoveComboBox)
 
-![Screenshot.png](https://bitbucket.org/repo/5qqryEB/images/496707745-Screenshot.png)
+![Screenshot.png](https://i.imgur.com/657kMpL.png)
 
 It's like a ComboBox, but the user can add and remove items directly. T'was my first custom SceneBuilder component on The Maven Central Repository.
 

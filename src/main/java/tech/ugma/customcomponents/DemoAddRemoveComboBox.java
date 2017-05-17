@@ -4,8 +4,9 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
@@ -32,18 +33,19 @@ public class DemoAddRemoveComboBox extends Application {
 
         addRemoveComboBox = new AddRemoveComboBox(dummyList);
         addRemoveComboBox.setSortAlphabetically(false);
+        BorderPane.setMargin(addRemoveComboBox, new Insets(10, 10, 10, 10));
+        BorderPane.setAlignment(addRemoveComboBox, Pos.TOP_CENTER);
 
-
-        borderPane.setTop(addRemoveComboBox);
-
-
-        Button submit = new Button("Submit");
-        submit.setOnAction(this::submit);
-        borderPane.setCenter(submit);
-
-
-        submission = new Text();
-        borderPane.setBottom(submission);
+        borderPane.setCenter(addRemoveComboBox);
+//
+//
+//        Button submit = new Button("Submit");
+//        submit.setOnAction(this::submit);
+//        borderPane.setCenter(submit);
+//
+//
+//        submission = new Text();
+//        borderPane.setBottom(submission);
 
 
         primaryStage.setScene(new Scene(borderPane, 400, 300));
