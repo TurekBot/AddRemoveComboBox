@@ -53,6 +53,13 @@
         </repository>
     </distributionManagement>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>14</maven.compiler.source>
+        <maven.compiler.target>14</maven.compiler.target>
+    </properties>
+
+
     <dependencies>
         <!--   JavaFX is now separate from the JDK, and must be included as a dependency.     -->
         <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-controls -->
