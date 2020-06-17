@@ -6,7 +6,7 @@ package tech.ugma.customcomponents;
  *  Last modified 5/10/17 9:07 AM
  */
 
-import com.sun.javafx.scene.control.skin.ComboBoxListViewSkin;
+import javafx.scene.control.skin.ComboBoxListViewSkin;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -167,7 +167,7 @@ public class AddRemoveComboBox extends ComboBox<String> {
         this.setCellFactory(initCellFactory());
 
         //Without this, the ButtonedComboBx will hide before the click registers to the button.
-        this.setSkin(initCustomSkin());
+        ((ComboBoxListViewSkin<?>) this.getSkin()).setHideOnClick(false);
 
         //Don't show the big ugly constant that holds the place of the add cell
         this.getSelectionModel().selectedItemProperty().addListener(initHideUglyConstantListener());
@@ -276,27 +276,6 @@ public class AddRemoveComboBox extends ComboBox<String> {
 
                 //Finally, return the customCell, all gussied up.
                 return customCell;
-            }
-        };
-    }
-
-    /**
-     * Makes a custom skin.
-     * <p>
-     * We have to make a custom skin, otherwise the ButtonedComboBx disappears before the click on the
-     * add/removal button is registered.
-     *
-     * @return a custom skin that will stop the ButtonedComboBx from hiding.
-     */
-    private ComboBoxListViewSkin<String> initCustomSkin() {
-
-        // We have to make a custom skin, otherwise the ButtonedComboBx disappears before the click on the
-        // add/removal button is registered.
-
-        return new ComboBoxListViewSkin<String>(AddRemoveComboBox.this) {
-            @Override
-            protected boolean isHideOnClickEnabled() {
-                return false;
             }
         };
     }
