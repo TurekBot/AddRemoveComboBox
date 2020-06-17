@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="AddRemoveComboBox" target="1.8" />
+      <module name="AddRemoveComboBox" target="14" />
     </bytecodeTargetLevel>
   </component>
 </project>
