@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AddRemoveComboBox.iml" filepath="$PROJECT_DIR$/AddRemoveComboBox.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/AddRemoveComboBox.iml" filepath="$PROJECT_DIR$/.idea/AddRemoveComboBox.iml" />
     </modules>
   </component>
 </project>

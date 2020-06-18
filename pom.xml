@@ -86,6 +86,14 @@
                 </configuration>
             </plugin>
 
+            <!--
+                To run the demo:
+                    * ensure Maven is running the right JDK
+                        * `mvn -v`
+                    * then run the demo
+                        * `mvn clean javafx:run`.
+                        * See here for more details: https://openjfx.io/openjfx-docs/#maven
+            -->
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
@@ -94,26 +102,6 @@
                     <mainClass>tech.ugma.customcomponents.DemoAddRemoveComboBox</mainClass>
                 </configuration>
             </plugin>
-
-<!--  Commented out for now. -->
-<!--            <plugin>-->
-<!--                <groupId>com.zenjava</groupId>-->
-<!--                <artifactId>javafx-maven-plugin</artifactId>-->
-<!--                <version>8.6.0</version>-->
-<!--                <configuration>-->
-<!--                    <mainClass>tech.ugma.customcomponents.DemoAddRemoveComboBox</mainClass>-->
-<!--                    <jfxMainAppJarName>DemoAddRemoveComboBox.jar</jfxMainAppJarName>-->
-<!--                </configuration>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>create-jfxjar</id>-->
-<!--                        <phase>package</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>build-jar</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
 
 
             <!--The following are plugins that are necessary to deploy the
