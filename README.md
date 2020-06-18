@@ -8,6 +8,11 @@ It's like a ComboBox, but the user can add and remove items directly. T'was my f
 
 ### How do I get set up? ###
 
+#### Which version? ####
+Use version *0.7* for *Java 8*.
+
+Use version *1.0+* for *Java 9+*.
+
 For the uninitiated:
 
  * [SceneBuilder](http://gluonhq.com/products/scene-builder/) is a WYSIWYG User Interface Designer for JavaFX.
