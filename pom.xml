@@ -99,7 +99,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.4</version>
                 <configuration>
-                    <mainClass>tech.ugma.customcomponents.DemoAddRemoveComboBox</mainClass>
+                    <mainClass>tech.ugma.customcomponents.demo.DemoAddRemoveComboBox</mainClass>
                 </configuration>
             </plugin>
 
