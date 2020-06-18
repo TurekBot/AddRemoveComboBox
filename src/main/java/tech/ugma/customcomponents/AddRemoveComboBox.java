@@ -63,7 +63,7 @@ public class AddRemoveComboBox extends ComboBox<String> {
      * If you don't like the way it's done here, feel free to set your own by calling
      * setRemovalAction().
      */
-    private EventHandler<ActionEvent> removalAction = new EventHandler<ActionEvent>() {
+    private EventHandler<ActionEvent> removalAction = new EventHandler<>() {
         @Override
         public void handle(ActionEvent event) {
 
@@ -87,7 +87,7 @@ public class AddRemoveComboBox extends ComboBox<String> {
      * If you don't like the way it's done here, feel free to set your own by calling
      * setAdditionAction().
      */
-    private EventHandler<ActionEvent> additionAction = new EventHandler<ActionEvent>() {
+    private EventHandler<ActionEvent> additionAction = new EventHandler<>() {
         @Override
         public void handle(ActionEvent event) {
             //Get the dialog ready
@@ -108,7 +108,7 @@ public class AddRemoveComboBox extends ComboBox<String> {
             Optional<String> result = addDialog.showAndWait();
 
             //If the result comes back, then:
-            result.ifPresent(new Consumer<String>() {
+            result.ifPresent(new Consumer<>() {
                 @Override
                 public void accept(String s) {
                     //Add the new item
@@ -193,7 +193,7 @@ public class AddRemoveComboBox extends ComboBox<String> {
      * @return a comparator that will always consider the add cell as the smaller of the two.
      */
     private Comparator<String> initAddCellRelegator() {
-        return new Comparator<String>() {
+        return new Comparator<>() {
             @Override
             public int compare(String o1, String o2) {
 
@@ -255,7 +255,7 @@ public class AddRemoveComboBox extends ComboBox<String> {
      */
     private Callback<ListView<String>, ListCell<String>> initCellFactory() {
 
-        return new Callback<ListView<String>, ListCell<String>>() {
+        return new Callback<>() {
             @Override
             public ListCell<String> call(ListView<String> param) {
 
@@ -472,7 +472,7 @@ public class AddRemoveComboBox extends ComboBox<String> {
 
 
             //When the item is changed, if you need to, change what the button does.
-            itemProperty().addListener(new ChangeListener<String>() {
+            itemProperty().addListener(new ChangeListener<>() {
                 @Override
                 public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                     if (Objects.equals(newValue, ADD_CELL_PLACEHOLDER)) {
