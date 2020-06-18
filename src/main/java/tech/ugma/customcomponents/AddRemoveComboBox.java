@@ -166,8 +166,17 @@ public class AddRemoveComboBox extends ComboBox<String> {
         //displayed in the dropdown area in a ListView
         this.setCellFactory(initCellFactory());
 
-        //Without this, the ButtonedComboBx will hide before the click registers to the button.
-        ((ComboBoxListViewSkin<?>) this.getSkin()).setHideOnClick(false);
+        // Wait till we have our Skin and then configure it a little.
+        this.skinProperty().addListener(new ChangeListener<>() {
+            @Override
+            public void changed(ObservableValue<? extends Skin<?>> observable, Skin<?> oldValue, Skin<?> newValue) {
+                if (newValue != null) {
+                    // Without this, the ButtonedComboBox will hide before the click registers to the button.
+                    ((ComboBoxListViewSkin<?>) newValue).setHideOnClick(false);
+                }
+            }
+        });
+
 
         //Don't show the big ugly constant that holds the place of the add cell
         this.getSelectionModel().selectedItemProperty().addListener(initHideUglyConstantListener());
