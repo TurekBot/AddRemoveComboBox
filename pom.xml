@@ -18,7 +18,7 @@
         The AddRemoveComboBox gives your user an intuitive way to
         remove/add items, with all the familiarity of a ComboBox.
     </description>
-    <url>https://bitbucket.org/UgmaDevelopment/addremovecombobox</url>
+    <url>https://github.com/TurekBot/AddRemoveComboBox</url>
 
     <licenses>
         <license>
@@ -37,9 +37,9 @@
     </developers>
 
     <scm>
-        <connection>scm:hg:https://bitbucket.org/UgmaDevelopment/addremovecombobox</connection>
-        <developerConnection>scm:hg:https://bitbucket.org/UgmaDevelopment/addremovecombobox</developerConnection>
-        <url>https://bitbucket.org/UgmaDevelopment/addremovecombobox</url>
+        <connection>scm:git:https://github.com/TurekBot/AddRemoveComboBox</connection>
+        <developerConnection>scm:git:https://github.com/TurekBot/AddRemoveComboBox</developerConnection>
+        <url>https://github.com/TurekBot/AddRemoveComboBox</url>
     </scm>
 
     <distributionManagement>
